@@ -1,0 +1,234 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Job Scheduling System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <h2>Hospital OS</h2>
+        <p class="subtitle">Job Scheduling System</p>
+
+        <nav>
+            <button class="nav-btn active" data-page="dashboard">Dashboard</button>
+            <button class="nav-btn" data-page="jobs">Hospital Jobs</button>
+            <button class="nav-btn" data-page="scheduling">Scheduling</button>
+            <button class="nav-btn" data-page="reports">Reports</button>
+            <button class="nav-btn" data-page="resources">Resources</button>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header>
+            <div>
+                <p class="eyebrow">HOSPITAL MANAGEMENT</p>
+                <h1 id="page-title">Dashboard</h1>
+            </div>
+            <span class="status"><span></span> API Connected</span>
+        </header>
+
+        <section id="dashboard" class="page">
+            <div class="welcome">
+                <h2>Hospital Job Scheduling</h2>
+                <p>Manage service jobs and compare CPU scheduling algorithms.</p>
+            </div>
+
+            <div class="cards">
+                <article class="stat-card">
+                    <p>Total Jobs</p>
+                    <h2 id="total-jobs">—</h2>
+                </article>
+                <article class="stat-card">
+                    <p>Waiting Jobs</p>
+                    <h2 id="waiting-jobs">—</h2>
+                </article>
+                <article class="stat-card">
+                    <p>Scheduling Algorithms</p>
+                    <h2>5</h2>
+                </article>
+            </div>
+
+            <div class="panel">
+                <h2>Recent Hospital Jobs</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Job ID</th>
+                                <th>Service</th>
+                                <th>Arrival</th>
+                                <th>Burst</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dashboard-jobs"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="jobs" class="page hidden">
+            <div class="panel">
+                <h2>All Hospital Jobs</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Job ID</th>
+                                <th>Patient ID</th>
+                                <th>Service</th>
+                                <th>Arrival</th>
+                                <th>Burst</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="all-jobs"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="scheduling" class="page hidden">
+            <div class="panel">
+                <h2>Run Scheduling</h2>
+                <p>Select an algorithm to schedule the current waiting jobs.</p>
+
+                <label for="algorithm">Scheduling Algorithm</label>
+                <select id="algorithm">
+                    <option value="FCFS">First Come, First Served</option>
+                    <option value="SJF">Shortest Job First</option>
+                    <option value="SRTF">Shortest Remaining Time First</option>
+                    <option value="Priority Scheduling">Priority Scheduling</option>
+                    <option value="Round Robin">Round Robin</option>
+                </select>
+
+                <div id="quantum-field" class="hidden">
+                    <label for="quantum">Time Quantum</label>
+                    <input id="quantum" type="number" min="1" value="2">
+                </div>
+
+                <button id="run-scheduling" class="primary-btn">Run Scheduling</button>
+                <p id="schedule-message"></p>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Job ID</th>
+                                <th>Service</th>
+                                <th>Start</th>
+                                <th>CT</th>
+                                <th>TAT</th>
+                                <th>WT</th>
+                                <th>RT</th>
+                            </tr>
+                        </thead>
+                        <tbody id="schedule-results"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        
+<section id="reports" class="page hidden">
+    <div class="panel">
+        <h2>Scheduling Performance Report</h2>
+        <p>Comparison of the five algorithms for the latest scheduling run.</p>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Algorithm</th>
+                        <th>Jobs</th>
+                        <th>Avg WT</th>
+                        <th>Avg TAT</th>
+                        <th>Avg RT</th>
+                    </tr>
+                </thead>
+                <tbody id="report-results"></tbody>
+            </table>
+        </div>
+
+        <p id="report-message"></p>
+    </div>
+</section>
+
+
+        <section id="resources" class="page hidden">
+
+    <div class="panel">
+        <h2>Hospital Staff</h2>
+        <p>View staff members and their current availability.</p>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Staff ID</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Department ID</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="staff-results"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2>Hospital Resources</h2>
+        <p>View resources and their current availability.</p>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Resource ID</th>
+                        <th>Resource Name</th>
+                        <th>Type</th>
+                        <th>Department ID</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="resource-results"></tbody>
+            </table>
+        </div>
+    </div>
+
+<div class="panel">
+    <h2>Active Allocations</h2>
+    <p>Currently allocated staff and resources.</p>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Job ID</th>
+                    <th>Schedule ID</th>
+                    <th>Staff</th>
+                    <th>Resource</th>
+                    <th>Algorithm</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="active-allocations"></tbody>
+        </table>
+    </div>
+
+    <p id="allocation-message">Loading allocations...</p>
+</div>
+
+</section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
